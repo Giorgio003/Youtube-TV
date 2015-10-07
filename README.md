@@ -38,10 +38,10 @@ Then:
 
 ## Installation
 
-After obtaining your API Key, fill it in `ytv.js` near the top via this line:  
+After obtaining your API Key, fill it in `src/ytv.js` near the top via this line:  
 `var apiKey = 'YOUR_API_KEY_HERE';`
 
-Include both the `ytv.css` and `ytv.js` in your HTML file and you are good to go.
+Now you can just include both the `ytv.css` and `ytv.js` in your HTML file, or you can minify styles and scripts with [Grunt.js](http://gruntjs.com/) and include generated files in `dist/` on your site.
 
 ```html
 <link href="src/ytv.css" type="text/css" rel="stylesheet" />
@@ -79,7 +79,7 @@ By visiting the intended channel's Youtube home page. The URL should look like o
 Additional options you may wish to add to get started.
 
 In addition to `user` and `channelId` you can also use `playlist` ID's which can also replace `user` and `channelId` or work along side them.
-`playlist: 'PLAYLIST_ID_HERE'` 
+`playlist: 'PLAYLIST_ID_HERE'`
 To chain multiple playlists together, separate them by comma's. Example:
 `playlist: 'PLAYLIST_ID1,PLAYLIST_ID2,PLAYLIST_ID3'`
 

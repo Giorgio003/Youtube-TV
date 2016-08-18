@@ -19,6 +19,7 @@ A small, slick, library independent YouTube User/Playlist player
 * [Default Player Options](http://giorgio003.github.io/Youtube-TV/demos/default.html)
 * [Chromeless Player](http://giorgio003.github.io/Youtube-TV/demos/chromeless.html)
 * [Playlist Support](http://giorgio003.github.io/Youtube-TV/demos/playlists.html)
+* [Custom Playlist Support](http://giorgio003.github.io/Youtube-TV/demos/custom-playlist.html)
 * [Full Screen Player](http://giorgio003.github.io/Youtube-TV/demos/fullscreen.html) (Good for a .tv website?)
 * [jQuery Support](http://giorgio003.github.io/Youtube-TV/demos/jquery.html)
 * [Responsive Support](http://giorgio003.github.io/Youtube-TV/demos/responsive.html)
@@ -101,9 +102,12 @@ If you prefer the `light` theme over the dark, add these 2 options (or mix 'n ma
 ```javascript
 settings = {
     element: null,
+        // Mandatory settings (see below)
     user: null,
     channelId: null,
     playlist: '',
+    videoList: null,
+        // Optional settings
     fullscreen: false,
     accent: '#fff',
     controls: true,
@@ -126,10 +130,16 @@ settings = {
 }
 ```
 
-* `element`: The element or element ID to apply the YouTube TV Player to
+You should choose one of the Mandatory settings:
+
 * `user`: (String) The Username of the YouTube user you want to display videos from
 * `channelId`: (String) The Channel ID of the YouTube channel you want to display videos from (for newer accounts)
-* `playlist`: (String) The Playlist ID(s) you would like to load separated by comma's (Overrides `user`)
+* `playlist`: (String) The Playlist ID(s) you would like to load separated by comma's (Overrides `user` and `videoList`)
+* `videoList`: (String) The Video IDs you would like to load separated by comma's (Overrides `user` and `playlist`)
+
+Other settings:
+
+* `element`: The element or element ID to apply the YouTube TV Player to
 * `browsePlaylists`: (Boolean) If `true` and the specified `user` has YouTube playlists, they will be accessible in the player by clicking the users Username
 * `fullscreen`: (Boolean) If `true`, the player will take up all the available space on the users browser screen
 * `accent`: (String) A CSS color string to apply to the accents of the player

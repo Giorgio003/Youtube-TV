@@ -50,6 +50,9 @@
 	left: 0;
 	-webkit-overflow-scrolling: touch;
 }
+.ytv-list-inner.without-header{
+	top: 0;
+}
 .ytv-list ul{
 	margin: 0;
 	padding: 0;

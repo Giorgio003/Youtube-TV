@@ -22,6 +22,7 @@
 				element: null,
 				user: null,
 				channelId: null,
+				videoList: null,
 				fullscreen: false,
 				accent: '#fff',
 				controls: true,
@@ -393,6 +394,84 @@
 							
 						});
 					} else console.log ('Youtube-TV Error: Empty video list');
+				},
+				compileVideoList: function(data){
+					if(data && data.items.length > 0){
+							var list = '',
+								videos = data.items,
+								first = true,
+								i;
+							// settings.channelId = userInfo.items[0].id; 
+							// if(settings.currentPlaylist) user.title += ' &middot; '+(settings.currentPlaylist);
+							if (settings.sortList) videos.sort(function(a,b){if(a.snippet.publishedAt > b.snippet.publishedAt) return -1;if(a.snippet.publishedAt < b.snippet.publishedAt) return 1;return 0;});
+							if (settings.reverseList) videos.reverse();
+							if (settings.shuffleList) {
+								videos = function (){for(var j, x, i = videos.length; i; j = Math.floor(Math.random() * i), x = videos[--i], videos[i] = videos[j], videos[j] = x);return videos;}();
+							}
+
+							list += '<div class="ytv-list-inner without-header"><ul>';
+							for(i=0; i<videos.length; i++){
+								if(videos[i].status.embeddable){
+									var video = {
+										title: videos[i].snippet.title,
+										slug: videos[i].id,
+										link: 'https://www.youtube.com/embed/'+videos[i].id+'&version=3',
+										// link: 'https://www.youtube.com/apiplayer?video_id='+videos[i].id+'&version=3',
+										published: videos[i].snippet.publishedAt,
+										stats: videos[i].statistics,
+										duration: (videos[i].contentDetails.duration),
+										thumb: videos[i].snippet.thumbnails.medium.url
+									};
+									
+									var durationString = video.duration.match(/[0-9]+[HMS]/g);
+									var h = 0, m = 0, s = 0, time = '';
+									durationString.forEach(function (duration) {
+										var unit = duration.charAt(duration.length-1);
+										var amount = parseInt(duration.slice(0,-1));
+										switch (unit) {
+											case 'H': h = (amount > 9 ? '' + amount : '0' + amount); break;
+											case 'M': m = (amount > 9 ? '' + amount : '0' + amount); break;
+											case 'S': s = (amount > 9 ? '' + amount : '0' + amount); break;
+										}
+									});
+									if (h){ time += h+':';}
+									if (m){ time += m+':';} else { time += '00:';}
+									if (s){ time += s;} else { time += '00';}
+									
+									var isFirst = '';
+									if(settings.playId==video.slug){
+										isFirst = ' class="ytv-active"';
+										first = video.slug;
+									} else if(first===true){
+										first = video.slug;
+									}
+
+									list += '<li'+isFirst+'><a href="#" data-ytv="'+(video.slug)+'" class="ytv-clear">';
+									list += '<div class="ytv-thumb"><div class="ytv-thumb-stroke"></div><span>'+(time)+'</span><img src="'+(video.thumb)+'"></div>';
+									list += '<div class="ytv-content"><b>'+(video.title)+'</b>';
+									if (video.stats)
+									{
+										list+='</b><span class="ytv-views">'+utils.addCommas(video.stats.viewCount)+' Views</span>';
+									}
+									list += '</div></a></li>';
+								}
+							}
+							list += '</ul></div>';
+							settings.element.innerHTML = '<div class="ytv-relative"><div class="ytv-video"><div id="ytv-video-player"></div></div><div class="ytv-list">'+list+'</div></div>';
+							if(settings.element.getElementsByClassName('ytv-active').length===0){
+								settings.element.getElementsByTagName('li')[0].className = "ytv-active";
+							}
+							var active = settings.element.getElementsByClassName('ytv-active')[0];
+							active.parentNode.parentNode.scrollTop = active.offsetTop;
+							action.logic.loadVideo(first, settings.autoplay);
+							
+							if (settings.playlist){
+								utils.ajax.get( utils.endpoints.playlistInfo(settings.playlist), prepare.playlists );
+							} else if(settings.browsePlaylists){
+								utils.ajax.get( utils.endpoints.userPlaylists(), prepare.playlists );
+							}
+
+					} else console.log ('Youtube-TV Error: Empty video list');
 				}
 			},
 			action = {
@@ -499,11 +578,14 @@
 				}
 				apiKey = settings.apiKey;
 				settings.element = (typeof id==='string') ? doc.getElementById(id) : id;
-				if(settings.element && (settings.user || settings.channelId || settings.playlist)){
+				if(settings.element && (settings.user || settings.channelId || settings.playlist) || settings.videoList){
 					prepare.youtube();
 					prepare.build();
 					action.bindEvents();
-					if (settings.playlist) {
+					if (settings.videoList) {
+						settings.videoString = settings.videoList;
+						utils.ajax.get( utils.endpoints.videoInfo(), prepare.compileVideoList );
+					} else if (settings.playlist) {
 						utils.ajax.get( utils.endpoints.playlistInfo(settings.playlist), prepare.selectedPlaylist );
 					} else {
 						utils.ajax.get( utils.endpoints.userInfo(), prepare.userUploads );

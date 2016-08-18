@@ -409,7 +409,7 @@
 								videos = function (){for(var j, x, i = videos.length; i; j = Math.floor(Math.random() * i), x = videos[--i], videos[i] = videos[j], videos[j] = x);return videos;}();
 							}
 
-							list += '<div class="ytv-list-inner"><ul>';
+							list += '<div class="ytv-list-inner without-header"><ul>';
 							for(i=0; i<videos.length; i++){
 								if(videos[i].status.embeddable){
 									var video = {

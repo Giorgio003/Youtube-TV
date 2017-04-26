@@ -1,11 +1,16 @@
-## To-do list @Giorgio003
-
-- [x] Implement Responsive Design :iphone:
-- [x] Add additional colour scheme to match Youtube `light` player
-- [x] Create modular settings for responsiveness and themes
-- [x] Allow multiple players
-- [x] Merge remaining pending pull requests from Original
-- [x] Update documentation (ongoing)
+## To-do list @m-hatch
+- [ ] Add OAuth2 token refresh
+- [x] Add OAuth2 URIs to endpoints
+- [ ] Store token in cookie or session variable
+- [ ] Bugfix: logout/revoke token on expired/invalid token. (400 response from API)
+- [x] Bugfix: likes count doesn't refresh when liking/unliking
+- [ ] Add ability to comment in-app
+- [ ] Add option to force column view
+- [x] Fix link:hover color
+- [ ] Refactor GET and POST ajax functions
+- [ ] Bugfix: Return to selected video after login redirect
+- [ ] Bugfix: Allow login for multiple players on a page
+- [ ] Update docs
 
 #### Youtube API v3
 - [x] Convert to Youtube API v3 !important

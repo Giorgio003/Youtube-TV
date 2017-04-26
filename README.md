@@ -118,6 +118,7 @@ settings = {
     sortList: false,
     reverseList: false,
     shuffleList: false,
+    showLikes: false,
     wmode: 'opaque',
     events: {
         videoReady: function(){},
@@ -126,17 +127,17 @@ settings = {
 }
 ```
 
-* `element`: The element or element ID to apply the YouTube TV Player to
-* `user`: (String) The Username of the YouTube user you want to display videos from
-* `channelId`: (String) The Channel ID of the YouTube channel you want to display videos from (for newer accounts)
-* `playlist`: (String) The Playlist ID(s) you would like to load separated by comma's (Overrides `user`)
-* `browsePlaylists`: (Boolean) If `true` and the specified `user` has YouTube playlists, they will be accessible in the player by clicking the users Username
-* `fullscreen`: (Boolean) If `true`, the player will take up all the available space on the users browser screen
-* `accent`: (String) A CSS color string to apply to the accents of the player
+* `element`: The element or element ID to apply the YouTube TV Player to.
+* `user`: (String) The Username of the YouTube user you want to display videos from.
+* `channelId`: (String) The Channel ID of the YouTube channel you want to display videos from (for newer accounts).
+* `playlist`: (String) The Playlist ID(s) you would like to load separated by comma's (Overrides `user`).
+* `browsePlaylists`: (Boolean) If `true` and the specified `user` has YouTube playlists, they will be accessible in the player by clicking the users Username.
+* `fullscreen`: (Boolean) If `true`, the player will take up all the available space on the users browser screen.
+* `accent`: (String) A CSS color string to apply to the accents of the player.
 * `controls`: (Boolean) If `false`, the normal YouTube controls will be hidden.
-* `annotations`: (Boolean) If `false`, the annotations from the YouTube video will be hidden
-* `autoplay`: (Boolean) If `true`, the first video in the list will automatically play once the player has loaded
-* `chainVideos`: (Boolean) If `true`, the next video in que will automatically play after the current video has completed
+* `annotations`: (Boolean) If `false`, the annotations from the YouTube video will be hidden.
+* `autoplay`: (Boolean) If `true`, the first video in the list will automatically play once the player has loaded.
+* `chainVideos`: (Boolean) If `true`, the next video in que will automatically play after the current video has completed.
 * `playerTheme`: (String) Sets the youtube player theme. Default is `dark` with an alterative `light` color scheme.
 * `listTheme`: (String) Sets the playlist theme. Default is `dark` with a `light` theme to match the alternative player theme.
 * `responsive`: (Boolean) If `true`, it enables a responsive design to support various resolutions including mobile devices. Default currently `false`.
@@ -144,8 +145,9 @@ settings = {
 * `sortList`: (Boolean) If `true`, this option will sort the video list by date uploaded.
 * `reverseList`: (Boolean) If `true`, this option will reverse order of the videos. (Can be combined with other sorting option to reverse after sorting).
 * `shuffleList`: (Boolean) If `true`, this option will shuffle the video list. (Useful for music playlists).
+* `showLikes`: (Boolean) If `true`, this option will display the Like Count under Views in the video list.
 * `wmode`: (String) Sets the Window Mode property for transparency, layering, and positioning in the browser. Values can be: `window` - movie plays in its own rectangular window on a web page. `opaque` - the movie hides everything on the page behind it. `transparent` - the background of the HTML page shows through all transparent portions of the movie, this may slow animation performance.
-* `events`: The respective events will fire when key actions in the player have been called
+* `events`: The respective events will fire when key actions in the player have been called.
 
 
 ## Responsive Design
